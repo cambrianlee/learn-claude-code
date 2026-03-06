@@ -73,6 +73,7 @@ def agent_loop(messages: list):
         # Append assistant turn
         messages.append({"role": "assistant", "content": response.content})
         # If the model didn't call a tool, we're done
+        print(response)
         if response.stop_reason != "tool_use":
             return
         # Execute each tool call, collect results
@@ -97,6 +98,7 @@ if __name__ == "__main__":
         if query.strip().lower() in ("q", "exit", ""):
             break
         history.append({"role": "user", "content": query})
+        print(history)
         agent_loop(history)
         response_content = history[-1]["content"]
         if isinstance(response_content, list):
